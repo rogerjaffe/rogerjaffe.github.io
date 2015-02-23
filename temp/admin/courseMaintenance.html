@@ -1,0 +1,77 @@
+<div id="vmCourseMaintenance" data-bind="visible: visible">
+  <div class="row">
+    <div class="col-md-7">
+      <div>
+        <h4 class="text-center">Courses
+        </h4>
+      </div>
+      <div class="scroll">
+        <ul class="list-group list-restrict-size scroll" data-bind="foreach: courses">
+          <a href="#" class="list-group-item compact" data-bind="click: function () {$parent.courseClick(id);}">
+            <span class="bold-category" data-bind="text: category+': '"></span><span data-bind="text: name"></span>
+          </a>
+        </ul>
+      </div>
+      <div class="top-spacer">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editCourse" data-bind="click: addCourse">Add</button>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div>
+        <h4>Details</h4>
+      </div>
+      <div data-bind="visible: courseVisible">
+        <div>
+          <input type="hidden" data-bind="value: id" />
+          <p>Name: <span data-bind="text: name"></span>
+          </p>
+        </div>
+        <div>
+          <p>Sections for this cycle: <span data-bind="text: sectionsForCycle"></span>
+          </p>
+        </div>
+        <div>
+          <p>Class size: <span data-bind="text: classSize"></span>
+          </p>
+        </div>
+        <div>
+          <p>Grade level: <span data-bind="text: gradeLevelText"></span>
+          </p>
+        </div>
+        <div>
+          <p>Category: <span data-bind="text: category"></span>
+          </p>
+        </div>
+        <div>
+          <p>Teacher 1: <span data-bind="text: teacher1"></span>
+          </p>
+        </div>
+        <div>
+          <p>Teacher 2: <span data-bind="text: teacher2"></span>
+          </p>
+        </div>
+        <div>
+          <p>Teacher 3: <span data-bind="text: teacher3"></span>
+          </p>
+        </div>
+        <div>
+          <p>Teacher 4: <span data-bind="text: teacher4"></span>
+          </p>
+        </div>
+        <div>
+          <p>Intervention/Mandatory course: <span data-bind="text: interventionText"></span>
+          </p>
+        </div>
+        <div>
+          <p>Locked: <span data-bind="text: lockedText"></span>
+          </p>
+        </div>
+        <div>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editCourse" data-bind="click: editCourse">Edit</button>
+          <button type="button" class="btn btn-primary" data-bind="click: deleteCourse">Del</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div template="temp/modal/editCourse.html"></div>
+</div>

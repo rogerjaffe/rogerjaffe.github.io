@@ -1,0 +1,60 @@
+<div id="vmList" data-bind="visible: visible">
+  <div class="col-md-5">
+    <h5>
+          Filter the student list by grade level, period, teacher and/or intervention status. 
+          A yellow background means that the student is set for that intervention.
+          Click the intervention cells next to a student to change intervention status.  
+          </h5>
+    <div class="form-group">
+      <label for="grade">Grade:</label>
+      <select data-bind="options: gradeLevels, value: selectedGradeLevel" id="grade" name="grade"></select>
+    </div>
+    <div class="form-group">
+      <label for="period">Period:</label>
+      <select data-bind="options: periods, value: selectedPeriod" id="period" name="period"></select>
+    </div>
+    <div class="form-group">
+      <label for="teacher">Teacher:</label>
+      <select data-bind="options: teachers, value: selectedTeacher" id="teacher" name="teacher"></select>
+    </div>
+    <div class="form-group">
+      <label for="intervention">Intervention:</label>
+      <select data-bind="value: selectedIntervention" id="intervention" name="intervention">
+        <option value="All">All</option>
+        <option value="math">Math</option>
+        <option value="english">English</option>
+        <option value="science">Science</option>
+        <option value="learningUpgrade">Learning Upgrade</option>
+      </select>
+    </div>
+    <button type="button" class="btn btn-primary" data-bind="click: changeFilter, text: refreshBtnText, enable: refreshBtnEnabled"></button>
+  </div>
+
+  <div class="col-md-7">
+    <div class="text-center">
+      <button type="button" class="btn btn-primary" data-bind="click: toggleDone, text: doneStatusText"></button>
+    </div>
+    <div class="scroll">
+      <table class="table table-hover table-condensed table-striped table-font">
+        <thead>
+          <tr data-bind="visible: processingCaption">
+            <td colspan="9" class="processing-font" text-center>Processing...</td>
+          </tr>
+        </thead>
+        <tbody data-bind="foreach: students">
+          <tr>
+            <td class="text-center" data-bind="text: studentId"></td>
+            <td class="text-center" data-bind="text: gradeLevel"></td>
+            <td data-bind="text: name"></td>
+            <td class="intervention-font text-center" subject="math" data-bind="attr: {studentId: studentId}, click: function (data, el) {$parent.interventionClick($(el.currentTarget), studentId, 'math')}, css: {'active-intervention': math==1, 'no-active-intervention': math==0}">Math</td>
+            <td class="intervention-font text-center" subject="english" data-bind="attr: {studentId: studentId}, click: function (data, el) {$parent.interventionClick($(el.currentTarget), studentId, 'english')}, css: {'active-intervention': english==1, 'no-active-intervention': english==0}">Eng</td>
+            <td class="intervention-font text-center" subject="science" data-bind="attr: {studentId: studentId}, click: function (data, el) {$parent.interventionClick($(el.currentTarget), studentId, 'science')}, css: {'active-intervention': science==1, 'no-active-intervention': science==0}">Sci</td>
+            <td class="intervention-font text-center" subject="studyHall" data-bind="attr: {studentId: studentId}, click: function (data, el) {$parent.interventionClick($(el.currentTarget), studentId, 'studyHall')}, css: {'active-intervention': studyHall==1, 'no-active-intervention': studyHall==0}">StHall</td>
+            <td class="intervention-font text-center" subject="learningUpgrade" data-bind="attr: {studentId: studentId}, click: function (data, el) {$parent.interventionClick($(el.currentTarget), studentId, 'learningUpgrade')}, css: {'active-intervention': learningUpgrade==1, 'no-active-intervention': learningUpgrade==0}">LU</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>

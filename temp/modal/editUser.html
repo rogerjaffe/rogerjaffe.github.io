@@ -1,0 +1,66 @@
+<div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <form id="editUserForm" data-toggle="validator" role="form">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Edit user</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-horizontal">
+            <div class="form-group" data-bind="visible: newUser">
+              <div class="col-md-12 text-center">
+                <p>To access the system for the first time, the new user should click the "forgot password" link on the login screen. A temporary password will be emailed to the new user's district account</p>
+              </div>
+            </div>
+            <div class="form-group" data-bind="visible: newUser">
+              <label for="id" class="col-md-4 control-label">ID:</label>
+              <div class="col-md-8">
+                <input class="form-control" data-bind="textInput: id" id="id" name="id" type="text" data-error="Required field" required>
+                <div class="help-block with-errors"></div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="lastname" class="col-md-4 control-label">Last name:</label>
+              <div class="col-md-8">
+                <input class="form-control" data-bind="textInput: lastname" id="lastname" name="lastname" data-error="Required field" required>
+                <div class="help-block with-errors"></div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="first" class="col-md-4 control-label">First name:</label>
+              <div class="col-md-8">
+                <input class="form-control" data-bind="textInput: firstname" id="firstname" name="firstname" data-error="Required field" required>
+                <div class="help-block with-errors"></div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email" class="col-md-4 control-label">Email:</label>
+              <div class="col-md-8">
+                <input class="form-control" data-bind="textInput: email" id="email" name="email" type="email" data-error="Must be valid email" required>
+                <div class="help-block with-errors"></div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="role" class="col-md-4 control-label">Role:</label>
+              <div class="col-md-8">
+                <select data-bind="options: roleOptions, optionsText: 'text', optionsValue: 'value', value: role"></select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="role" class="col-md-4 control-label">Interventions entered:</label>
+              <div class="col-md-8">
+                <input type="checkbox" data-bind="checked: interventionsEntered">
+              </div>
+            </div>
+            <div class="form-group modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal" data-bind="click: cancelUser">Cancel</button>
+              <button type="submit" class="btn btn-primary" data-bind="click: saveUser">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

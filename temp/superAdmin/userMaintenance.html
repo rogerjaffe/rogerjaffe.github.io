@@ -1,0 +1,52 @@
+<div id="vmUserMaintenance" data-bind="visible: visible">
+  <div class="row">
+    <div class="col-md-3">
+      <div>
+        <h4 class="text-center">Users
+        </h4>
+      </div>
+      <ul class="list-group list-restrict-size scroll" data-bind="foreach: users">
+        <a href="#" class="list-group-item compact" data-bind="click: function () {$parent.userClick(id);}">
+          <span data-bind="text: lastname+', '+firstname"></span>
+        </a>
+      </ul>
+      <div class="top-spacer">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editUser" data-bind="click: addUser">Add</button>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div>
+        <h4>Details</h4>
+      </div>
+      <div data-bind="visible: userVisible">
+        <div>
+          <p>ID: <span data-bind="text: id"></span>
+          </p>
+        </div>
+        <div>
+          <p>Name: <span data-bind="text: lastname"></span>, <span data-bind="text: firstname"></span>
+          </p>
+        </div>
+        <div>
+          <p>Email: <span data-bind="text: email"></span>
+          </p>
+        </div>
+        <div>
+          <p>Role: <span data-bind="text: roleText"></span>
+          </p>
+        </div>
+        <div>
+          <p>Interventions entered: <span data-bind="text: interventionsEnteredText"></span>
+          </p>
+        </div>
+        <div>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editUser" data-bind="click: editUser">Edit</button>
+          <button type="button" class="btn btn-primary" data-bind="click: deleteUser">Del</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div template="temp/modal/editUser.html"></div>
+</div>
+
+<!-- <select data-bind="options: roleOptions, optionsText: 'text', optionsValue: 'value', value: role"></select> -->

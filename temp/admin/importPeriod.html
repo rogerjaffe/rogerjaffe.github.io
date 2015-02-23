@@ -1,0 +1,35 @@
+<div id="vmImportPeriod" data-bind="visible: visible">
+  <div class="row">
+    <div class="col-md-4">
+      <h5>
+          Enter period / teacher CSV data in the box below.  
+          Each line should contain the student ID and the teacher name in that order and separated by commas.  
+          Each student should be listed on a separate line.  The first line (column header) will be ignored.
+        </h5>
+      <h5>
+          Use the following field list for a PowerSchool Quick Export:</h5>
+      <h5>Student_Number<br/>
+          ^(*period_info;2(A);teacher_name)<br/>
+          ^(*period_info;2-3(A);teacher_name)<br/>
+          ^(*period_info;3(A);teacher_name)<br/>
+          ^(*period_info;3-4(A);teacher_name)<br/>
+          ^(*period_info;4(A);teacher_name)<br/>
+          ^(*period_info;4-5(A);teacher_name)<br/>
+          ^(*period_info;5(A);teacher_name)<br/>
+          ^(*period_info;5-6(A);teacher_name)<br/>
+          ^(*period_info;6(A);teacher_name)<br/>
+          ^(*period_info;6-7(A);teacher_name)<br/>
+          ^(*period_info;7(A);teacher_name)<br/>
+        </h5>
+      <h5 class="warning">NOTE: This will erase all current student schedules!</h5>
+    </div>
+    <div class="col-md-8">
+      <div class="form-group text-center">
+        <textarea data-bind="textInput: csvData" class="csv-font" id="csvData" name="csvData" rows="15" cols="50"></textarea>
+      </div>
+      <div class="form-group text-center">
+        <button type="button" class="btn btn-primary" data-bind="text: processBtnCaption, click: processClick, enable: enableProcessBtn">Process</button>
+      </div>
+    </div>
+  </div>
+</div>

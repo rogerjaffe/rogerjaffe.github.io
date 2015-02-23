@@ -1,0 +1,38 @@
+<div id="vmTeachers" data-bind="visible: visible">
+  <div class="col-md-8 scroll">
+    <table class="table table-hover table-condensed table-striped">
+      <thead>
+        <tr>
+          <th>Update</th>
+          <th>Teacher name</th>
+          <th>Email</th>
+          <th text-center>Completed</th>
+        </tr>
+      </thead>
+      <tbody data-bind="foreach: users">
+        <tr>
+          <td>
+            <!-- ko if: interventionsEntered==='0' -->
+            <button type="button" class="btn btn-primary btn-xs btn-block" data-bind="click: function() {$parent.statusChange(id);}">Set complete</button>
+            <!-- /ko -->
+            <!-- ko if: interventionsEntered==='1' -->
+            <button type="button" class="btn btn-primary btn-xs btn-block" data-bind="click: function() {$parent.statusChange(id);}">Set incomplete</button>
+            <!-- /ko -->
+          </td>
+          <td data-bind="text: lastname+', '+firstname"></td>
+          <td data-bind="text: email"></td>
+          <td data-bind="css: {'text-center': true, 'green-background': interventionsEntered==='1', 'red-background': interventionsEntered==='0'}">
+            <span data-bind="visible: interventionsEntered==='1'" class="glyphicon glyphicon-ok"></span>
+            <span data-bind="visible: interventionsEntered==='0'" class="glyphicon glyphicon-remove"></span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-2 col-md-offset-1">
+    <p>
+      <button type="button" class="btn btn-primary btn-block" data-bind="click: clearAll">Clear all</button>
+    </p>
+  </div>
+</div>
+</div>

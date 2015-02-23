@@ -1,0 +1,34 @@
+<div id="vmImportStudents" data-bind="visible: visible">
+  <div class="row">
+    <div class="col-md-4">
+      <h5>
+          Enter student CSV data in the box below.  
+          Each line should contain the student ID, last, first, middle, and grade in that order and separated by commas.  
+          Each student should be listed on a separate line.  The first line (column header) will be ignored.
+        </h5>
+      <h5>
+          Use the following field list for a PowerSchool Quick Export:</h5>
+      <h5>
+          Student_Number<br/>
+          Last_Name<br/>
+          First_Name<br/>
+          Middle_Name<br/>
+          Grade_Level<br/>
+          U_Students_AD.AD_passwd<br/>
+          Ethnicity<br/>
+          Gender<br/>
+          U_Students.EL_PROFLEVEL<br/>
+          CA_SpEd504<br/>
+          </h5>
+      <h5 class="warning">NOTE: This will update existing student information and will add any new students</h5>
+    </div>
+    <div class="col-md-8">
+      <div class="form-group text-center">
+        <textarea data-bind="textInput: csvData" class="csv-font" id="csvData" name="csvData" rows="15" cols="60"></textarea>
+      </div>
+      <div class="form-group text-center">
+        <button type="button" class="btn btn-primary" data-bind="text: processBtnCaption, click: processClick, enable: enableProcessBtn">Process</button>
+      </div>
+    </div>
+  </div>
+</div>

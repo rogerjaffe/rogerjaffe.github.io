@@ -1,0 +1,249 @@
+<?xml version="1.0"?>
+<!-- Usage:																																-->
+<!-- $ant 						to build release																		-->
+<!-- $ant upload 			to build and FTP app files only to server						-->
+<!-- $ant upload_all	to build and FTP all files and plugins to server		-->
+
+<!-- In constants.js comment out "var debug = true;" prior to build 			-->
+
+<project name="Classroom Game Show" default="initialize">
+	
+	<!-- Set up global constants -->
+	<target name="get_properties">
+		<property name="css_dir" value="css"/>
+		<property name="js_dir" value="js"/>
+		<property name="php_dir" value="php"/>
+		<property name="plugins_dir" value="plugins"/>
+		<property name="build_dir" value="../build"/>
+		<property name="images_dir" value="images"/>
+	</target>
+	
+	<!-- Delete the build directory to start the build clean -->
+	<target name="clean_up" depends="get_properties">
+		<delete dir="${build_dir}"/>
+		<echo>************************</echo>
+		<echo>Old ${build_dir} deleted</echo>
+	</target>
+	
+	<!-- Script entry point is here (see <project> tag above) -->
+	<target name="initialize" depends="get_properties,clean_up">
+		<mkdir dir="${build_dir}"/>
+		<antcall target="compress_css"/>
+		<antcall target="compress_teacher_js"/>
+		<antcall target="compress_player_js"/>
+		<antcall target="add_copyright"/>
+		<antcall target="copy_plugin_files"/>
+		<antcall target="copy_app_files"/>
+		<echo>Done!</echo>
+	</target>
+	
+	<!-- Concatenate the css files for gameshow, jquery, tipTip into one -->
+	<target name="concat_css">
+		<concat destfile="${build_dir}/${css_dir}/gameshow.css">
+			<filelist id="files" dir="${css_dir}">
+				<file name="jquery-ui-custom.css"/>
+				<file name="tipTip.css"/>
+				<file name="gameshow.css"/>
+			</filelist>
+		</concat>
+		<echo>************************</echo>
+		<echo>CSS Concatenation: ${build_dir}/${css_dir}/lib.css -- Success</echo>
+	</target>
+	
+	<!-- Compress the concatenated css file -->
+	<target name="compress_css" depends="concat_css">
+		<antcall target="compress">
+			<param name="path" value="${build_dir}/${css_dir}"/>
+			<param name="file" value="gameshow"/>
+			<param name="ext" value="css"/>
+		</antcall>
+		<echo>************************</echo>
+		<echo>CSS Compress: Success</echo>
+	</target>
+	
+	<!-- Concatenate the js program files for the teacher -->
+	<target name="concat_teacher_js">
+		<concat destfile="${build_dir}/${js_dir}/teacher-lib-c.js">
+			<filelist id="files" dir="${js_dir}">
+				<file name="constants.js"/>
+				<file name="messages.js"/>
+				<file name="utils.js"/>
+				<file name="help.js"/>
+				<file name="appController.js"/>
+				<file name="browserDetect.js"/>
+				<file name="mathParse.js"/>
+				<file name="vmLogin.js"/>
+				<file name="vmEditUser.js"/>
+				<file name="vmCreateUser.js"/>
+				<file name="vmGameList.js"/>
+				<file name="vmEditGame.js"/>
+				<file name="vmEditNames.js"/>
+				<file name="vmEditQuestion.js"/>
+				<file name="vmControlBoard.js"/>
+				<file name="vmGameController.js"/>
+				<file name="vmGameInfo.js"/>
+				<file name="vmControlAnsweredFirst.js"/>
+				<file name="vmControlPlayerStatus.js"/>
+				<file name="vmControlQA.js"/>
+				<file name="vmControlQATimer.js"/>
+				<file name="vmNameList.js"/>
+				<file name="vmQuestionList.js"/>
+				<file name="vmQuestionList.js"/>
+				<file name="vmQuestionPreview.js"/>
+				<file name="vmScores.js"/>
+				<file name="vmSetupQuestionList.js"/>
+				<file name="vmSetupBoard.js"/>
+				<file name="vmTitle.js"/>
+				<file name="cgs.js"/>
+			</filelist>
+		</concat>
+		<echo>************************</echo>
+		<echo>JS Concatenation: Success</echo>
+	</target>
+	
+	<!-- Compress the concatenated js source file for the teacher -->
+	<target name="compress_teacher_js" depends="concat_teacher_js">
+		<antcall target="compress">
+			<param name="path" value="${build_dir}/${js_dir}"/>
+			<param name="file" value="teacher-lib-c"/>
+			<param name="ext" value="js"/>
+		</antcall>
+		<echo>************************</echo>
+		<echo>JS Compress: Success</echo>
+	</target>
+	
+	<!-- Add the copyright notice to the compressed js pages -->
+	<target name="add_copyright">
+		<antcall target="copyright">
+			<param name="src_file" value="${build_dir}/${js_dir}/player-lib-c.min.js"/>
+			<param name="copyright_file" value="${js_dir}/copyright.js"/>
+			<param name="dest_file" value="${build_dir}/${js_dir}/player-lib.min.js"/>
+		</antcall>
+		<antcall target="copyright">
+			<param name="src_file" value="${build_dir}/${js_dir}/teacher-lib-c.min.js"/>
+			<param name="copyright_file" value="${js_dir}/copyright.js"/>
+			<param name="dest_file" value="${build_dir}/${js_dir}/teacher-lib.min.js"/>
+		</antcall>
+		<echo>************************</echo>
+		<echo>Append copyright: Success</echo>
+	</target>
+
+	<!-- Function to concatenate the copyright notice -->
+	<target name="copyright">
+		<concat destfile="${dest_file}">
+			<filelist id="files" dir="">
+				<file name="${copyright_file}"/>
+				<file name="${src_file}"/>
+			</filelist>
+		</concat>
+		<delete file="${src_file}"/>
+	</target>
+	
+	<!-- Concatenate the js program files for the players -->
+	<target name="concat_player_js">
+		<concat destfile="${build_dir}/${js_dir}/player-lib-c.js">
+			<filelist id="files" dir="${js_dir}">
+				<file name="constants.js"/>
+				<file name="messages.js"/>
+				<file name="utils.js"/>
+				<file name="help.js"/>
+				<file name="mathParse.js"/>
+				<file name="browserDetect.js"/>
+				<file name="cgsPlayer.js"/>
+				<file name="playerAppController.js"/>
+				<file name="vmPlayerGameController.js"/>
+				<file name="vmPlayerLogin.js"/>
+				<file name="vmPlayerPlayTab.js"/>
+				<file name="vmPlayerScoresTab.js"/>
+			</filelist>
+		</concat>
+		<echo>************************</echo>
+		<echo>JS Player Concatenation: Success</echo>
+	</target>
+	
+	<!-- Compress the concatenated js program files for the player -->
+	<target name="compress_player_js" depends="concat_player_js">
+		<antcall target="compress">
+			<param name="path" value="${build_dir}/${js_dir}"/>
+			<param name="file" value="player-lib-c"/>
+			<param name="ext" value="js"/>
+		</antcall>
+		<echo>************************</echo>
+		<echo>JS teacher Compress: Success</echo>
+	</target>
+	
+	<!-- Function to compress a js / css file using yuicompressor -->
+	<target name="compress">
+		<java jar="/usr/local/lib/yuicompressor-2.4.7.jar" fork="true">
+			<arg value="${path}/${file}.${ext}"/>
+			<arg value="-o"/>
+			<arg value="${path}/${file}.min.${ext}"/>
+		</java>
+		<delete file="${path}/${file}.${ext}"/>
+	</target>
+	
+	<target name="copy_plugin_files">
+		<copy todir="${build_dir}/${js_dir}/${plugins_dir}">
+			<fileset dir="${js_dir}/${plugins_dir}"/>
+		</copy>
+		<copy todir="${build_dir}/${php_dir}">
+			<fileset dir="${php_dir}"/>
+		</copy>
+		<copy todir="${build_dir}/${images_dir}">
+			<fileset dir="${images_dir}"/>
+		</copy>
+		<copy todir="${build_dir}/${css_dir}/${images_dir}">
+			<fileset dir="${css_dir}/${images_dir}"/>
+		</copy>
+		<echo>************************</echo>
+		<echo>Copy plugin files</echo>
+	</target>
+
+	<target name="copy_app_files">
+		<copy todir="${build_dir}">
+			<filelist id="files" dir="">
+				<file name="favicon.ico"/>
+				<file name="index.html"/>
+				<file name="player.html"/>
+			</filelist>
+		</copy>
+		<echo>************************</echo>
+		<echo>Copy app files</echo>
+	</target>
+
+  <target name="upload" depends="initialize">
+    <ftp server="66.147.244.146"
+      userid="classrq5"
+      password="Bud888$3bun"
+      port="21"
+      remotedir="/public_html/cgs2.0"
+      passive="yes"
+      binary="no">
+			<fileset dir="${build_dir}">
+				<include name="${css_dir}/*.min.css"/>
+				<include name="${css_dir}/images/*.*"/>				
+				<include name="images/*.*"/>
+				<include name="*.ico"/>
+				<include name="*.html"/>
+				<include name="${js_dir}/*.min.js"/>
+			</fileset>
+    </ftp>
+		<echo>************************</echo>
+		<echo>Upload app files only</echo>
+  </target>
+
+  <target name="upload_all" depends="initialize">
+    <ftp server="66.147.244.146"
+      userid="classrq5"
+      password="Bud888$3bun"
+      port="21"
+      remotedir="/public_html/cgs2.0"
+      passive="yes"
+      binary="no">
+			<fileset dir="${build_dir}"/>
+    </ftp>
+		<echo>************************</echo>
+		<echo>Upload all files</echo>
+  </target>
+
+</project>

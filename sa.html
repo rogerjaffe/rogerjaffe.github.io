@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Pragma" content="no-cache" />
+  <link rel="shortcut icon" href="favicon.ico" />
+
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/bootstrap-select.css">
+  <link rel="stylesheet" href="css/intervention.css" type="text/css" />
+
+  <script src='js/app/config.js'></script>
+  <script data-main="superAdmin.js" src='js/lib/require/require.js'></script>
+
+  <title>Marston Middle School Advisory System</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div id="tabContent" class="panel panel-default panel-info">
+        <div class="panel-heading">
+          <div class="col-md-12">
+            <h3 class="text-center">Marston Middle School Advisory System</h3>
+          </div>
+        </div>
+
+        <div class="panel-body">
+          <div id="expired" style="display:none">
+            <p>Your session has timed out. Please <a href="sa.html">log in</a> again</p>
+          </div>
+          <div id="otherError" style="display:none" class="text-center">
+            <p>There was a problem. Please <a href="sa.html">log in</a> again</p>
+          </div>
+          <div id="content" style="display:none" template="temp/superAdmin.html"></div>
+          <div template="temp/login.html"></div>
+        </div>
+      </div>
+      <div template="temp/footer.html"></div>
+    </div>
+
+  </div>
+
+</body>
+
+</html>
